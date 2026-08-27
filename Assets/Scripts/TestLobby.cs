@@ -3,6 +3,7 @@ using Unity.Services.Core;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
+using IngameDebugConsole;
 
 public class TestLobby : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class TestLobby : MonoBehaviour
             Debug.Log("Signed in "+AuthenticationService.Instance.PlayerId);
         };
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        DebugLogConsole.AddCommand("Createlobby","Creates a lobby ",Createlobby);
+        DebugLogConsole.AddCommand("Listlobby","List all active lobby ",ListLobbie);
     }
 
     private async void Createlobby()
