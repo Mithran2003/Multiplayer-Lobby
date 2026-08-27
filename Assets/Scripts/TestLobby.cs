@@ -20,7 +20,7 @@ public class TestLobby : MonoBehaviour
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
         DebugLogConsole.AddCommand("Createlobby","Creates a lobby ",Createlobby);
         DebugLogConsole.AddCommand("Listlobby","List all active lobby ",ListLobbie);
-        DebugLogConsole.AddCommand("Joinlobby","Joins the first active lobby ",JoinLobby);
+        DebugLogConsole.AddCommand<string>("JoinlobbyByCode","Joins the lobby with a Code",JoinLobbyByCode);
     }
 
     private void Update()
@@ -47,9 +47,13 @@ public class TestLobby : MonoBehaviour
         {
             string lobbyName="MyLobby";
             int maxPlayers = 4;
-            Lobby lobby= await LobbyService.Instance.CreateLobbyAsync(lobbyName,maxPlayers);
+            CreateLobbyOptions createLobbyOptions = new CreateLobbyOptions
+            {
+                IsPrivate = true,
+            };
+            Lobby lobby= await LobbyService.Instance.CreateLobbyAsync(lobbyName,maxPlayers,createLobbyOptions);
             hostLobby = lobby;
-            Debug.Log($"Created Lobby! {lobby.Name} {lobby.MaxPlayers} , lobby id:{lobby.Id}");
+            Debug.Log($"Created Lobby! with the name:{lobby.Name}, Maxplayer:{lobby.MaxPlayers},lobby id:{lobby.Id},lobby Code{lobby.LobbyCode}");
         }
         catch(LobbyServiceException e)
         {
@@ -75,13 +79,12 @@ public class TestLobby : MonoBehaviour
         }
     }
 
-    private async void JoinLobby()
+    private async void JoinLobbyByCode(string lobbyCode)
     {
         try
         {
-            QueryResponse queryResponse = await LobbyService.Instance.QueryLobbiesAsync();
-            await LobbyService.Instance.JoinLobbyByIdAsync(queryResponse.Results[0].Id);
-            Debug.Log("Joined the lobby"+queryResponse.Results[0].Id);
+            await LobbyService.Instance.JoinLobbyByCodeAsync(lobbyCode);
+            Debug.Log($"Joined Lobby By Lobby Code:{lobbyCode}");
         }
         catch(LobbyServiceException e)
         {
