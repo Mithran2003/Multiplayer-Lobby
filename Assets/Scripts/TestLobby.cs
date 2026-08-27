@@ -54,7 +54,7 @@ public class TestLobby : MonoBehaviour
             };
             Lobby lobby= await LobbyService.Instance.CreateLobbyAsync(lobbyName,maxPlayers,createLobbyOptions);
             hostLobby = lobby;
-            Debug.Log($"Created Lobby! with the name:{lobby.Name}, Maxplayer:{lobby.MaxPlayers},lobby id:{lobby.Id},lobby Code{lobby.LobbyCode}");
+            Debug.Log($"Created Lobby! with the name:{lobby.Name}, Maxplayer:{lobby.MaxPlayers},lobby id:{lobby.Id},lobby Code:  {lobby.LobbyCode}");
         }
         catch(LobbyServiceException e)
         {
