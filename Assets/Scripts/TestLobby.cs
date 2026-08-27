@@ -99,6 +99,7 @@ public class TestLobby : MonoBehaviour
         try
         {
             await LobbyService.Instance.QuickJoinLobbyAsync();
+            Debug.Log("Enterd a lobby ");
         }
         catch(LobbyServiceException e)
         {
