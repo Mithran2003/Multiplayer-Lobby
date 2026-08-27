@@ -21,7 +21,7 @@ public class TestLobby : MonoBehaviour
         DebugLogConsole.AddCommand("Createlobby","Creates a lobby ",Createlobby);
         DebugLogConsole.AddCommand("Listlobby","List all active lobby ",ListLobbie);
         DebugLogConsole.AddCommand<string>("JoinlobbyByCode","Joins the lobby with a Code",JoinLobbyByCode);
-        DebugLogConsole.AddCommand("QuickJoin","Quick Joins an active lobby ",QuickJoinLobby);
+        DebugLogConsole.AddCommand("QuickJoin","Quick Joins a public lobby ",QuickJoinLobby);
     }
 
     private void Update()
