@@ -21,6 +21,7 @@ public class TestLobby : MonoBehaviour
         DebugLogConsole.AddCommand("Createlobby","Creates a lobby ",Createlobby);
         DebugLogConsole.AddCommand("Listlobby","List all active lobby ",ListLobbie);
         DebugLogConsole.AddCommand<string>("JoinlobbyByCode","Joins the lobby with a Code",JoinLobbyByCode);
+        DebugLogConsole.AddCommand("QuickJoin","Quick Joins an active lobby ",QuickJoinLobby);
     }
 
     private void Update()
@@ -49,7 +50,7 @@ public class TestLobby : MonoBehaviour
             int maxPlayers = 4;
             CreateLobbyOptions createLobbyOptions = new CreateLobbyOptions
             {
-                IsPrivate = true,
+                IsPrivate = false,
             };
             Lobby lobby= await LobbyService.Instance.CreateLobbyAsync(lobbyName,maxPlayers,createLobbyOptions);
             hostLobby = lobby;
@@ -91,5 +92,17 @@ public class TestLobby : MonoBehaviour
             Debug.Log(e);
         }
         
+    }
+
+    private async void QuickJoinLobby()
+    {
+        try
+        {
+            await LobbyService.Instance.QuickJoinLobbyAsync();
+        }
+        catch(LobbyServiceException e)
+        {
+            Debug.Log(e);
+        }
     }
 }
